@@ -2,9 +2,11 @@
 
 An interactive map rendered entirely from a **static file**: no tile server, no API key, no per-request cost. Spring Boot serves the PMTiles archive as a static resource; the browser fetches only the tiles it needs via HTTP range requests.
 
+The demo works on a map of **Italy**: the basemap is an extract of Italy at zoom 0–6, the map opens centered on Rome, and the mock devices sit around Italian cities.
+
 ## What it does
 
-- **Basemap**: vector tiles from a [PMTiles](https://github.com/protomaps/PMTiles) archive, rendered client-side by [MapLibre GL JS](https://maplibre.org/) with [Protomaps](https://protomaps.com/) cartographic styles.
+- **Basemap**: vector tiles of Italy (zoom 0–6) from a [PMTiles](https://github.com/protomaps/PMTiles) archive, rendered client-side by [MapLibre GL JS](https://maplibre.org/) with [Protomaps](https://protomaps.com/) cartographic styles.
 - **Device layer**: 500 mock IoT devices clustered around major Italian cities, served as GeoJSON from a Spring Boot REST endpoint (`/api/devices?bbox=...`), filtered by the current viewport.
 - **No tile server, no database, no API key**: the JavaScript libraries, fonts and sprites are loaded from public CDNs.
 
@@ -20,7 +22,7 @@ An interactive map rendered entirely from a **static file**: no tile server, no 
 git clone https://github.com/stefanofago73/pmtiles-spring-demo.git
 cd pmtiles-spring-demo
 
-# 2. Download a PMTiles basemap (Italy, zoom 0-6, ~1.6 MB)
+# 2. Extract the Italy basemap (zoom 0-6, ~1.6 MB) from a Protomaps daily build
 ./download-tiles.sh
 
 # 3. Run the application
@@ -42,9 +44,11 @@ mvnw.cmd spring-boot:run
 
 Then open [http://localhost:8080](http://localhost:8080).
 
+Both scripts extract Italy at zoom 0–6 by default. For more detail when zooming in, pass a higher zoom level, for example `./download-tiles.sh --maxzoom 8` or `download-tiles.cmd --maxzoom 8`: the file gets larger, and it keeps the same name.
+
 ## Downloading tiles manually
 
-If you prefer not to use the script, install the [pmtiles CLI](https://github.com/protomaps/go-pmtiles/releases) and run the command below, replacing `YYYYMMDD` with a build date from the last seven days (see [maps.protomaps.com/builds](https://maps.protomaps.com/builds)):
+If you prefer not to use the script, install the [pmtiles CLI](https://github.com/protomaps/go-pmtiles/releases) and run the command below, which extracts the same Italy basemap the scripts produce, replacing `YYYYMMDD` with a build date from the last seven days (see [maps.protomaps.com/builds](https://maps.protomaps.com/builds)):
 
 ```bash
 pmtiles extract \
@@ -54,11 +58,13 @@ pmtiles extract \
   --maxzoom=6
 ```
 
-You can change the bounding box to any region. Some examples:
+The bounding box `6.63,36.62,18.52,47.09` covers mainland Italy, Sicily and Sardinia; the southernmost islands, such as Lampedusa, fall outside it.
+
+To use a different region, change the bounding box: in the manual command, or with the `BBOX` variable of `download-tiles.sh` (`download-tiles.cmd` always uses Italy). The mock devices and the initial view stay on Italy, so for another region you also need to change `center` in `app.js` and `CITY_CLUSTERS` in `DeviceController.java`. Some examples:
 
 | Region | `--bbox` |
 |---|---|
-| Italy | `6.63,36.62,18.52,47.09` |
+| Italy (default) | `6.63,36.62,18.52,47.09` |
 | France | `-5.14,41.33,9.56,51.09` |
 | Germany | `5.87,47.27,15.04,55.06` |
 | Europe | `-10.0,35.0,40.0,72.0` |
@@ -84,12 +90,14 @@ pmtiles-spring-demo/
 │           ├── index.html               # Single-page map UI
 │           ├── app.js                   # MapLibre + PMTiles setup
 │           └── data/
-│               └── planet_z6.pmtiles    # ← downloaded, not in git
+│               └── planet_z6.pmtiles    # ← Italy extract, downloaded, not in git
 └── src/test/
     └── java/com/example/pmtiles/
         ├── PmtilesDemoApplicationTests.java
         └── DeviceControllerTests.java
 ```
+
+Despite its name, `planet_z6.pmtiles` contains only the Italy extract, not the whole planet.
 
 ## How it works
 

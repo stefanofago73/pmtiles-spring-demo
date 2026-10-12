@@ -13,7 +13,7 @@
 # Usage:
 #   ./download-tiles.sh                  # Italy, zoom 0-6 (default, ~1.6 MB)
 #   ./download-tiles.sh --maxzoom 10     # Italy, zoom 0-10 (larger file)
-#   BBOX="2.0,42.0,6.0,51.5" ./download-tiles.sh   # France instead
+#   BBOX="-5.14,41.33,9.56,51.09" ./download-tiles.sh   # France instead (see README)
 
 set -euo pipefail
 
