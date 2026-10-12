@@ -12,7 +12,7 @@ The demo works on a map of **Italy**: the basemap is an extract of Italy at zoom
 
 ## Prerequisites
 
-- **Java 17+** (tested with 17 and 21)
+- **Java 17+** (tested with 17 and 25)
 - **pmtiles CLI**: to download the basemap tiles ([releases](https://github.com/protomaps/go-pmtiles/releases))
 
 ## Quick start
@@ -117,10 +117,9 @@ Despite its name, `planet_z6.pmtiles` contains only the Italy extract, not the w
 | Component | Version | License |
 |---|---|---|
 | Spring Boot | 3.3.10 | Apache-2.0 |
-| Java | 17+ | GPL-2.0 (OpenJDK) |
 | MapLibre GL JS | 5.4.0 | BSD-3-Clause |
 | PMTiles | 4.3.0 (JS) / spec v3 | BSD-3 / CC0 |
-| Protomaps Basemaps | 5.7.2 | BSD-3 |
+| Protomaps Basemaps | 5.7.2 | BSD-3 (code), CC0 (style) |
 
 ## License
 
