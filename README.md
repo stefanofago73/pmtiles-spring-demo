@@ -75,7 +75,7 @@ Higher `--maxzoom` values produce larger files but more detail when zooming in.
 
 ```
 pmtiles-spring-demo/
-├── pom.xml                              # Spring Boot 3.3.10, Java 17
+├── pom.xml                              # Spring Boot 4.1.1, Java 17
 ├── mvnw / mvnw.cmd                      # Maven wrapper
 ├── download-tiles.sh                    # Download PMTiles basemap (Linux/macOS)
 ├── download-tiles.cmd                   # Download PMTiles basemap (Windows)
@@ -116,7 +116,7 @@ Despite its name, `planet_z6.pmtiles` contains only the Italy extract, not the w
 
 | Component | Version | License |
 |---|---|---|
-| Spring Boot | 3.3.10 | Apache-2.0 |
+| Spring Boot | 4.1.1 | Apache-2.0 |
 | MapLibre GL JS | 5.4.0 | BSD-3-Clause |
 | PMTiles | 4.3.0 (JS) / spec v3 | BSD-3 / CC0 |
 | Protomaps Basemaps | 5.7.2 | BSD-3 (code), CC0 (style) |
