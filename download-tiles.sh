@@ -8,7 +8,7 @@
 #
 # Prerequisites:
 #   - pmtiles CLI: https://github.com/protomaps/go-pmtiles/releases
-#     (single binary, no install needed)
+#     (single binary: put it in your PATH or in this folder)
 #
 # Usage:
 #   ./download-tiles.sh                  # Italy, zoom 0-6 (default, ~1.6 MB)
@@ -42,19 +42,25 @@ echo "Source: $SOURCE"
 echo "(Protomaps daily planet builds: https://docs.protomaps.com/basemaps/downloads)"
 echo ""
 
-if ! command -v pmtiles &> /dev/null; then
-    echo "Error: 'pmtiles' CLI not found."
+# Use the pmtiles CLI from PATH, or a binary placed in this folder
+if command -v pmtiles &> /dev/null; then
+    PMTILES="pmtiles"
+elif [ -x "./pmtiles" ]; then
+    PMTILES="./pmtiles"
+else
+    echo "Error: 'pmtiles' CLI not found in PATH or in this folder."
     echo "Download it from: https://github.com/protomaps/go-pmtiles/releases"
     echo ""
     echo "Quick install (Linux/macOS):"
     echo "  curl -L https://github.com/protomaps/go-pmtiles/releases/latest/download/go-pmtiles_Linux_x86_64.tar.gz | tar xz"
+    echo "Then either leave 'pmtiles' in this folder or move it to a folder in your PATH:"
     echo "  sudo mv pmtiles /usr/local/bin/"
     exit 1
 fi
 
 mkdir -p "$(dirname "$DEST")"
 
-if ! pmtiles extract "$SOURCE" "$DEST" --bbox="$BBOX" $MAXZOOM_FLAG; then
+if ! "$PMTILES" extract "$SOURCE" "$DEST" --bbox="$BBOX" $MAXZOOM_FLAG; then
     echo "Extraction failed. If that build is not available, pick a date from"
     echo "https://maps.protomaps.com/builds and run:"
     echo "  SOURCE=https://build.protomaps.com/YYYYMMDD.pmtiles $0"

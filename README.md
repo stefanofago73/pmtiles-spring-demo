@@ -13,7 +13,7 @@ The demo works on a map of **Italy**: the basemap is an extract of Italy at zoom
 ## Prerequisites
 
 - **Java 17+** (tested with 17 and 25)
-- **pmtiles CLI**: to download the basemap tiles ([releases](https://github.com/protomaps/go-pmtiles/releases))
+- **pmtiles CLI**: a single binary from the [go-pmtiles releases](https://github.com/protomaps/go-pmtiles/releases) (pick the archive for your OS). Put it in your `PATH` or in the project folder, next to the download scripts. The binary is excluded by `.gitignore`, so it is never committed.
 
 ## Quick start
 
