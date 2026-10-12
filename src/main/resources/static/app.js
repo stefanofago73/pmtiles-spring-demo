@@ -1,16 +1,6 @@
-/**
- * PMTiles + MapLibre GL JS demo application.
- *
- * - Basemap tiles served from a local PMTiles file via HTTP range requests.
- * - Device markers loaded from /api/devices as GeoJSON, refreshed on every map move.
- * - No API keys, no tile server: the JavaScript libraries, fonts and sprites come from public CDNs.
- */
-
 import maplibregl from "https://cdn.jsdelivr.net/npm/maplibre-gl@5.4.0/+esm";
 import { Protocol, PMTiles } from "https://cdn.jsdelivr.net/npm/pmtiles@4.3.0/+esm";
 import { layers, namedFlavor } from "https://cdn.jsdelivr.net/npm/@protomaps/basemaps@5.7.2/+esm";
-
-// --- PMTiles protocol setup ---
 
 const protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -18,11 +8,9 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const pmtiles = new PMTiles("/data/planet_z6.pmtiles");
 protocol.add(pmtiles);
 
-// --- Map initialization ---
-
 const map = new maplibregl.Map({
     container: "map",
-    center: [12.4964, 41.9028],    // Rome
+    center: [12.4964, 41.9028],
     zoom: 5,
     style: {
         version: 8,
@@ -41,17 +29,13 @@ const map = new maplibregl.Map({
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
 
-// --- Device layer ---
-
 map.on("load", () => {
 
-    // Add an empty GeoJSON source, populated after the first fetch
     map.addSource("devices", {
         type: "geojson",
         data: { type: "FeatureCollection", features: [] }
     });
 
-    // Circle layer with data-driven color
     map.addLayer({
         id: "devices-circles",
         type: "circle",
@@ -74,7 +58,6 @@ map.on("load", () => {
         }
     });
 
-    // Popup on click
     map.on("click", "devices-circles", (e) => {
         const props = e.features[0].properties;
         const coords = e.features[0].geometry.coordinates.slice();
@@ -91,12 +74,9 @@ map.on("load", () => {
         map.getCanvas().style.cursor = "";
     });
 
-    // Fetch devices for the current viewport
     loadDevices();
     map.on("moveend", loadDevices);
 });
-
-// --- Data loading ---
 
 async function loadDevices() {
     const bounds = map.getBounds();
@@ -114,7 +94,6 @@ async function loadDevices() {
         const geojson = await response.json();
         map.getSource("devices").setData(geojson);
 
-        // Update device count in the info panel
         const countEl = document.getElementById("device-count");
         if (countEl) {
             countEl.textContent = geojson.features.length.toLocaleString();

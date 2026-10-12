@@ -11,24 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * REST endpoint that returns mock IoT devices as a GeoJSON FeatureCollection.
- * <p>
- * Devices are clustered around major Italian cities using a Gaussian spread,
- * producing a realistic distribution instead of a uniform random scatter.
- * The {@code bbox} parameter filters the result to the current map viewport.
- */
 @RestController
 @RequestMapping("/api")
 public class DeviceController {
 
     private static final int DEVICE_COUNT = 500;
 
-    /**
-     * City centers used as cluster seeds. Each device is placed near one of
-     * these cities with a Gaussian offset (sigma ~0.15 degrees, roughly 15 km).
-     * Larger cities get proportionally more devices.
-     */
     private static final double[][] CITY_CLUSTERS = {
             // { latitude, longitude, relative weight }
             {45.4642, 9.1900, 4.0},    // Milano
@@ -56,11 +44,6 @@ public class DeviceController {
         this.devices = generateDevices();
     }
 
-    /**
-     * Returns devices as a GeoJSON FeatureCollection, optionally filtered by bounding box.
-     *
-     * @param bbox comma-separated bounding box: minLon,minLat,maxLon,maxLat
-     */
     @GetMapping("/devices")
     public Map<String, Object> getDevices(
             @RequestParam(required = false) String bbox) {
