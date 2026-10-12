@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMTiles + MapLibre Demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.4.0/dist/maplibre-gl.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        #map { width: 100vw; height: 100vh; }
+        #info {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #334155;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+            max-width: 260px;
+        }
+        #info strong { color: #0d9488; }
+        #device-count { font-weight: 600; }
+        .legend {
+            margin-top: 8px;
+            display: flex;
+            gap: 14px;
+            font-size: 12px;
+        }
+        .legend span::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        .legend .online::before { background: #16a34a; }
+        .legend .offline::before { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="info">
+        <strong>PMTiles + MapLibre Demo</strong><br>
+        Devices in view: <span id="device-count">0</span>
+        <div class="legend">
+            <span class="online">Online</span>
+            <span class="offline">Offline</span>
+        </div>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# --- Java / Maven ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# --- IDE ---
+.idea/
+*.iml
+*.iws
+.project
+.classpath
+.settings/
+.factorypath
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# --- PMTiles data (downloaded separately, see README) ---
+src/main/resources/static/data/*.pmtiles
+
+# --- pmtiles CLI binary (download it from the go-pmtiles releases) ---
+/pmtiles
+/pmtiles.exe
+
+# --- OS ---
+Thumbs.db
