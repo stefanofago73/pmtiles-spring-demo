@@ -27,7 +27,7 @@ class DeviceControllerTests {
 
     @Test
     void bboxFiltersDevices() throws Exception {
-        // Small bbox around Rome: should return fewer than 5000 devices
+        // Small bbox around Rome: should return fewer than 500 devices
         mockMvc.perform(get("/api/devices")
                         .param("bbox", "12.0,41.5,13.0,42.5"))
                 .andExpect(status().isOk())

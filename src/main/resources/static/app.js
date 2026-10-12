@@ -3,7 +3,7 @@
  *
  * - Basemap tiles served from a local PMTiles file via HTTP range requests.
  * - Device markers loaded from /api/devices as GeoJSON, refreshed on every map move.
- * - No API keys, no tile server, no external dependencies beyond CDN-hosted ES modules.
+ * - No API keys, no tile server: the JavaScript libraries, fonts and sprites come from public CDNs.
  */
 
 import maplibregl from "https://cdn.jsdelivr.net/npm/maplibre-gl@5.4.0/+esm";
