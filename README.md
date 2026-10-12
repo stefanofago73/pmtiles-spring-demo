@@ -1,7 +1,5 @@
 # PMTiles + MapLibre + Spring Boot Demo
 
-Companion project for the article [Maps without a tile server: how PMTiles serves vector tiles from a static file](https://dev.to/).
-
 An interactive map rendered entirely from a **static file**: no tile server, no API key, no per-request cost. Spring Boot serves the PMTiles archive as a static resource; the browser fetches only the tiles it needs via HTTP range requests.
 
 ## What it does
