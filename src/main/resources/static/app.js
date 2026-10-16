@@ -1,4 +1,4 @@
-import maplibregl from "https://cdn.jsdelivr.net/npm/maplibre-gl@5.4.0/+esm";
+import * as maplibregl from "https://cdn.jsdelivr.net/npm/maplibre-gl@6.14.0/dist/maplibre-gl.mjs";
 import { Protocol, PMTiles } from "https://cdn.jsdelivr.net/npm/pmtiles@4.3.0/+esm";
 import { layers, namedFlavor } from "https://cdn.jsdelivr.net/npm/@protomaps/basemaps@5.7.2/+esm";
 
